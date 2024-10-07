@@ -3,38 +3,40 @@
 import { gsap } from "gsap";
 import { defineProps, defineEmits, ref, watch } from 'vue';
 // ############################## PROPS ##############################
-const props = defineProps({
-    isShow: {
-        type: Boolean,
-        default: false,
-    }
-}) 
+const props = withDefaults(defineProps<{
+    isShow: boolean;
+}>(), {
+    isShow: false,
+});
 // ############################## EMITS ##############################
-const emits = defineEmits(['close']);
+const emits = defineEmits<{
+    (e: 'close'): void,
+}>();
 // ############################## DATA ##############################
-const isShowDialog =ref(false);
+const overlayRef = ref<HTMLElement | null>(null);
+const contentRef = ref<HTMLElement | null>(null);
 // ############################## WATCHER ##############################
 watch(() => props.isShow, (newValue) =>  {
-    if(newValue === true) {
-        isShowDialog.value = true;
-        gsap.to('.primary-dialog__overlay', { duration: 0.3, opacity: 1 });
-        gsap.to('.primary-dialog__content', { duration: 0.4, scale: 1 });
+    if(newValue) {
+        if (overlayRef.value && contentRef.value) {
+            gsap.to(overlayRef.value, { duration: 0.2, opacity: 1 });
+            gsap.to(contentRef.value, { duration: 0.3, scale: 1 });
+        }
     } else {
-        gsap.to('.primary-dialog__overlay', { duration: 0.3, opacity: 0 })
-        gsap.to('.primary-dialog__content', { duration: 0.4, scale: 0 })
-        .then(() => {
-            isShowDialog.value = false;
-        })
+        if (overlayRef.value && contentRef.value) {
+            gsap.to(overlayRef.value, { duration: 0.2, opacity: 0 });
+            gsap.to(contentRef.value, { duration: 0.3, scale: 0 });
+        }
     }
 })
 </script>
 
 <template>
-    <div class="primary-dialog__overlay"
-    @click="$emit('close')"
-    v-show="isShowDialog"
+    <div ref="overlayRef" class="primary-dialog__overlay"
+    @click="emits('close')"
+    v-show="props.isShow"
     >
-        <div class="primary-dialog__content" 
+        <div ref="contentRef" class="primary-dialog__content" 
         @click.stop
         >
             <slot></slot>

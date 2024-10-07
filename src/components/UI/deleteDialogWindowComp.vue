@@ -1,8 +1,18 @@
 <script setup lang="ts">
-    import { defineEmits } from 'vue';
-    
-    const emits = defineEmits(['close', 'deleteTask']);
-
+    import { defineEmits, defineProps } from 'vue';
+    // ############################## EMITS ##############################
+    const emits = defineEmits<{
+        (e: 'close'): void;
+        (e: 'deleteTask'): void;
+    }>();
+    // ############################## PROPS ##############################
+    const props = withDefaults(defineProps<{
+        isShow?: boolean;
+        isLoading?: boolean;
+    }>(), {
+        isShow: false,
+        isLoading: false,
+    });
 </script>
 
 <template>
@@ -11,8 +21,26 @@
             <p>Вы уверены, что хотите удалить задачу?</p>
         </div>
         <div class="delete-dialog-window__actions">
-            <v-btn variant="outlined" size="small" color="var(--basic-icon-color1)" @click="emits('deleteTask')">Да</v-btn>
-            <v-btn variant="outlined" size="small" color="var(--basic-icon-color2)" @click="$emit('close')">Нет</v-btn>
+            <!-- loader -->
+            <v-icon v-if="props.isLoading" class="icon-loader" color="#7E57C2">mdi-loading</v-icon>
+            <v-btn 
+            variant="outlined" 
+            size="small" 
+            color="var(--basic-icon-color1)" 
+            @click="emits('deleteTask')"
+            v-show="!props.isLoading"
+            >
+            Да
+            </v-btn>
+            <v-btn 
+            variant="outlined" 
+            size="small" 
+            color="var(--basic-icon-color2)" 
+            @click="emits('close')"
+            v-show="!props.isLoading"
+            >
+            Нет
+            </v-btn>
         </div>
     </div>
 </template>
@@ -46,6 +74,14 @@
         align-items: center;
         justify-content: center;
         gap: 1rem;
+    }
+    .icon-loader {
+        display: inline-block;
+        animation: spin 1s linear infinite;
+    }
+    @keyframes spin {
+        0% { transform: rotate(0deg); }
+        100% { transform: rotate(360deg); }
     }
     
 </style>
