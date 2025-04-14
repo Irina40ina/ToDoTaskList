@@ -18,10 +18,10 @@ const isShowSelectedTask: Ref<boolean> = ref(false);
 const isShowCreationDialog: Ref<boolean> = ref(false);
 const isLoading: Ref<boolean> = ref(false);
 const selectedTaskData: Ref<TaskDataType> = ref({
-    id: null,
-    title: '',
-    description: '',
-    isComplete: false,
+  id: null,
+  title: '',
+  description: '',
+  isComplete: false,
 });
 const deletedTaskId: Ref<number | null> = ref(null);
 // ############################## METHODS ##############################
@@ -45,8 +45,8 @@ async function deleteTask() {
   try {
     isLoading.value = true;
     const result = await deleteTasks(deletedTaskId.value);
-    if(result === 'success') {
-      store.tasks = store.tasks.filter((task: TaskDataType) => task.id!== deletedTaskId.value);
+    if (result === 'success') {
+      store.tasks = store.tasks.filter((task: TaskDataType) => task.id !== deletedTaskId.value);
     }
   } catch (err) {
     console.error(`App.vue => deleteTask => ${err}`);
@@ -67,19 +67,21 @@ onMounted(async () => {
   } catch (err) {
     console.error(`App.vue => onMounted => ${err}`);
   }
-})
+});
 </script>
 
 <template>
   <div class="app">
     <!-- Заголовок -->
     <header>
-      <div class="w-100 h-100 d-flex justify-space-between align-center elevation-4 px-4 rounded-lg">
-        <p class="main-title">Мои задачи</p> 
-        <v-btn 
-          size="small" 
-          prepend-icon="mdi-plus" 
-          color="var(--btn-bg)" 
+      <div
+        class="w-100 h-100 d-flex justify-space-between align-center elevation-4 px-4 rounded-lg"
+      >
+        <p class="main-title">Мои задачи</p>
+        <v-btn
+          size="small"
+          prepend-icon="mdi-plus"
+          color="var(--btn-bg)"
           @click="isShowCreationDialog = true"
         >
           Новая задача
@@ -88,25 +90,22 @@ onMounted(async () => {
     </header>
     <!-- Компонент отрисовки всех задач -->
     <main class="main-container">
-      <taskCardComp 
-        v-for="task in store.tasks" 
-        :key="task.id" 
-        :task-data="task" 
-        @select-task="openTask" 
+      <taskCardComp
+        v-for="task in store.tasks"
+        :key="task.id"
+        :task-data="task"
+        @select-task="openTask"
         @open-dialog-window="openDialogDeleteTask"
-      > 
+      >
       </taskCardComp>
     </main>
-    
+
     <!-- Компонент отрисовки открытой задачи -->
-    <primaryDialogComp 
-      :is-show="isShowSelectedTask"
-      @close="isShowSelectedTask = false"
-    >
-      <taskContentComp 
+    <primaryDialogComp :is-show="isShowSelectedTask" @close="isShowSelectedTask = false">
+      <taskContentComp
         :is-show="isShowSelectedTask"
-        :selected-task="selectedTaskData" 
-        @close="isShowSelectedTask = false" 
+        :selected-task="selectedTaskData"
+        @close="isShowSelectedTask = false"
         @open-dialog-window="openDialogDeleteTask"
         :is-loading="isLoading"
       >
@@ -114,23 +113,15 @@ onMounted(async () => {
     </primaryDialogComp>
 
     <!-- Компонент создания новой задачи -->
-    <primaryDialogComp 
-      :is-show="isShowCreationDialog" 
-      @close="isShowCreationDialog = false"
-    >
-      <taskCreationComp 
-        :is-show="isShowCreationDialog" 
-        @close="isShowCreationDialog = false"
-      >
+    <primaryDialogComp :is-show="isShowCreationDialog" @close="isShowCreationDialog = false">
+      <taskCreationComp :is-show="isShowCreationDialog" @close="isShowCreationDialog = false">
       </taskCreationComp>
     </primaryDialogComp>
-    
+
     <!-- Диалоговое окно при удалении задачи -->
-    <primaryDialogComp 
-      :is-show="deleteMode"
-    >
-      <deleteDialogWindowComp 
-        @delete-task="deleteTask" 
+    <primaryDialogComp :is-show="deleteMode">
+      <deleteDialogWindowComp
+        @delete-task="deleteTask"
         @close="handleCloseDeleteWindow"
         :is-loading="isLoading"
       />
@@ -175,8 +166,10 @@ header {
   grid-template-columns: repeat(4, 1fr);
   justify-items: center;
   gap: 1rem;
-  padding: .5rem 0;
+  padding: 0.5rem 0;
 }
 
-.main-container::-webkit-scrollbar { width: 0 !important }
+.main-container::-webkit-scrollbar {
+  width: 0 !important;
+}
 </style>

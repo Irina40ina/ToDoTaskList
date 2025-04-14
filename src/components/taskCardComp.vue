@@ -9,49 +9,60 @@ import useMainStore from '@/store/index.ts';
 
 const store = useMainStore();
 // ############################## PROPS ##############################
-const props = withDefaults(defineProps<{
+const props = withDefaults(
+  defineProps<{
     taskData: TaskDataType;
-}>(), {});
+  }>(),
+  {}
+);
 // ############################## EMITS ##############################
 const emits = defineEmits<{
-    (e: 'selectTask', data: TaskDataType): void;
-    (e: 'openDialogWindow', id: number): void;
+  (e: 'selectTask', data: TaskDataType): void;
+  (e: 'openDialogWindow', id: number): void;
 }>();
 // ############################## DATA ##############################
 const isLoading: Ref<boolean> = ref(false);
 // ############################## METHODS ##############################
 async function completeTask() {
+  //test husky
   try {
-        isLoading.value = true;
-        props.taskData.isComplete = true;
-        const result = await completeTasks(props.taskData);
-        if(result === "success")
-        store.tasks = store.tasks.map((t: TaskDataType) => t.id === props.taskData.id ? {...t, isComplete: true} : t);
-    } catch (err) {
-        console.error(`taskCardComp.vue => completeTask => ${err}`);
-    } finally {
-        isLoading.value = false;
-    }
+    isLoading.value = true;
+    console.log(isLoading.value);
+    props.taskData.isComplete = true;
+    const result = await completeTasks(props.taskData);
+    if (result === 'success')
+      store.tasks = store.tasks.map((t: TaskDataType) =>
+        t.id === props.taskData.id ? { ...t, isComplete: true } : t
+      );
+  } catch (err) {
+    console.error(`taskCardComp.vue => completeTask => ${err}`);
+  } finally {
+    isLoading.value = false;
+  }
 }
 async function returnTask() {
-    try {
-        props.taskData.isComplete = false;
-        const result = await returnTasks(props.taskData);
-        if(result === 'success')
-        store.tasks = store.tasks.map((t: TaskDataType) => t.id === props.taskData.id ? {...t, isComplete: false} : t);
-    } catch (err) {
-        console.error(`taskCardComp.vue => returnTask => ${err}`);
-    }
+  try {
+    props.taskData.isComplete = false;
+    const result = await returnTasks(props.taskData);
+    if (result === 'success')
+      store.tasks = store.tasks.map((t: TaskDataType) =>
+        t.id === props.taskData.id ? { ...t, isComplete: false } : t
+      );
+  } catch (err) {
+    console.error(`taskCardComp.vue => returnTask => ${err}`);
+  }
 }
 </script>
 
 <template>
   <!-- Карточка с задачей -->
-  <v-card 
+  <v-card
     @click="emits('selectTask', taskData)"
     class="w-100 d-flex flex-column rounded-lg"
     height="200"
-    :style="{ backgroundColor: props.taskData.isComplete ? 'var(--completed-bg)' : 'var(--basic-bg)'}"
+    :style="{
+      backgroundColor: props.taskData.isComplete ? 'var(--completed-bg)' : 'var(--basic-bg)',
+    }"
   >
     <v-card-title>
       {{ props.taskData.title }}
@@ -61,9 +72,9 @@ async function returnTask() {
     <!-- Кнопки действий -->
     <v-card-actions class="justify-end ga-0">
       <!-- Кнопка выполнения -->
-      <v-btn 
-        size="small" 
-        icon="mdi-check-all" 
+      <v-btn
+        size="small"
+        icon="mdi-check-all"
         color="var(--basic-icon-color1)"
         @click.stop="completeTask"
         :loading="isLoading"
@@ -78,10 +89,10 @@ async function returnTask() {
         @click.stop="returnTask"
       ></v-btn>
       <!-- Кнопка удаления -->
-      <v-btn 
-        size="small" 
-        icon="mdi-trash-can-outline" 
-        color="var(--basic-icon-color2)" 
+      <v-btn
+        size="small"
+        icon="mdi-trash-can-outline"
+        color="var(--basic-icon-color2)"
         @click.stop="emits('openDialogWindow', props.taskData.id)"
       >
       </v-btn>
@@ -90,15 +101,14 @@ async function returnTask() {
 </template>
 
 <style scoped>
-    .text-container {
-        overflow: hidden;
-        text-overflow: ellipsis;
-        display: -webkit-box;
-        -webkit-box-orient: vertical;
-        -webkit-line-clamp: 5;
-        line-clamp: 5;
-        color: var(--basic-fg);
-        font-family: var(--basic-font);
-    }
-    
+.text-container {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 5;
+  line-clamp: 5;
+  color: var(--basic-fg);
+  font-family: var(--basic-font);
+}
 </style>

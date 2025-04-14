@@ -1,4 +1,7 @@
 import prettier from 'eslint-plugin-prettier';
+import vueParser from 'vue-eslint-parser';
+import tsParser from '@typescript-eslint/parser';
+import vue from 'eslint-plugin-vue';
 
 export default [
   {
