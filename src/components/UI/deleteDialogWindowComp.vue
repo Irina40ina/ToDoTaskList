@@ -16,33 +16,33 @@
 </script>
 
 <template>
-    <div class="delete-dialog-window">
-        <div class="delete-dialog-window__text">
-            <p>Вы уверены, что хотите удалить задачу?</p>
-        </div>
-        <div class="delete-dialog-window__actions">
-            <!-- loader -->
-            <v-icon v-if="props.isLoading" class="icon-loader" color="#7E57C2">mdi-loading</v-icon>
-            <v-btn 
-            variant="outlined" 
-            size="small" 
-            color="var(--basic-icon-color1)" 
-            @click="emits('deleteTask')"
-            v-show="!props.isLoading"
-            >
-            Да
-            </v-btn>
-            <v-btn 
-            variant="outlined" 
-            size="small" 
-            color="var(--basic-icon-color2)" 
-            @click="emits('close')"
-            v-show="!props.isLoading"
-            >
-            Нет
-            </v-btn>
-        </div>
+  <div class="delete-dialog-window">
+    <div class="delete-dialog-window__text">
+      <p>Вы уверены, что хотите удалить задачу?</p>
     </div>
+    <div class="delete-dialog-window__actions">
+      <!-- loader -->
+      <v-icon v-if="props.isLoading" class="icon-loader" color="#7E57C2">mdi-loading</v-icon>
+      <v-btn 
+        variant="outlined" 
+        size="small" 
+        color="var(--basic-icon-color1)" 
+        @click="emits('deleteTask')"
+        v-show="!props.isLoading"
+      >
+        Да
+      </v-btn>
+      <v-btn 
+        variant="outlined" 
+        size="small" 
+        color="var(--basic-icon-color2)" 
+        @click="emits('close')"
+        v-show="!props.isLoading"
+      >
+        Нет
+      </v-btn>
+    </div>
+  </div>
 </template>
 
 

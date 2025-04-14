@@ -46,47 +46,47 @@ async function returnTask() {
 </script>
 
 <template>
-        <!-- Карточка с задачей -->
-        <v-card 
-        @click="emits('selectTask', taskData)"
-        class="w-100 d-flex flex-column rounded-lg"
-        height="200"
-        :style="{ backgroundColor: props.taskData.isComplete ? 'var(--completed-bg)' : 'var(--basic-bg)'}"
-        >
-            <v-card-title>
-                {{ props.taskData.title }}
-            </v-card-title>
-            <!-- Текст карточки -->
-            <v-card-text class="text-container">{{ props.taskData.description }}</v-card-text>
-            <!-- Кнопки действий -->
-            <v-card-actions class="justify-end ga-0">
-                <!-- Кнопка выполнения -->
-                <v-btn 
-                size="small" 
-                icon="mdi-check-all" 
-                color="var(--basic-icon-color1)"
-                @click.stop="completeTask"
-                :loading="isLoading"
-                v-show="!props.taskData.isComplete"
-                ></v-btn>
-                <!-- Кнопка возврата задачи -->
-                <v-btn
-                icon="mdi-undo-variant"
-                size="small"
-                color="var(--basic-icon-color2)"
-                v-show="props.taskData.isComplete"
-                @click.stop="returnTask"
-                ></v-btn>
-                <!-- Кнопка удаления -->
-                <v-btn 
-                size="small" 
-                icon="mdi-trash-can-outline" 
-                color="var(--basic-icon-color2)" 
-                @click.stop="emits('openDialogWindow', props.taskData.id)"
-                >
-                </v-btn>
-            </v-card-actions>
-        </v-card>
+  <!-- Карточка с задачей -->
+  <v-card 
+    @click="emits('selectTask', taskData)"
+    class="w-100 d-flex flex-column rounded-lg"
+    height="200"
+    :style="{ backgroundColor: props.taskData.isComplete ? 'var(--completed-bg)' : 'var(--basic-bg)'}"
+  >
+    <v-card-title>
+      {{ props.taskData.title }}
+    </v-card-title>
+    <!-- Текст карточки -->
+    <v-card-text class="text-container">{{ props.taskData.description }}</v-card-text>
+    <!-- Кнопки действий -->
+    <v-card-actions class="justify-end ga-0">
+      <!-- Кнопка выполнения -->
+      <v-btn 
+        size="small" 
+        icon="mdi-check-all" 
+        color="var(--basic-icon-color1)"
+        @click.stop="completeTask"
+        :loading="isLoading"
+        v-show="!props.taskData.isComplete"
+      ></v-btn>
+      <!-- Кнопка возврата задачи -->
+      <v-btn
+        icon="mdi-undo-variant"
+        size="small"
+        color="var(--basic-icon-color2)"
+        v-show="props.taskData.isComplete"
+        @click.stop="returnTask"
+      ></v-btn>
+      <!-- Кнопка удаления -->
+      <v-btn 
+        size="small" 
+        icon="mdi-trash-can-outline" 
+        color="var(--basic-icon-color2)" 
+        @click.stop="emits('openDialogWindow', props.taskData.id)"
+      >
+      </v-btn>
+    </v-card-actions>
+  </v-card>
 </template>
 
 <style scoped>

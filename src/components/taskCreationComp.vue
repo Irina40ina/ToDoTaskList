@@ -49,47 +49,47 @@ async function saveTask() {
 </script>
 
 <template>
-    <div class="task-container">
-        <!-- Кнопка закрытия окна -->
-        <v-btn 
-        variant="outlined" 
-        size="small" 
-        icon="mdi-close" 
-        color="var(--basic-icon-color2)" 
-        @click="emits('close')"
-        >
-        </v-btn>
-        <!-- Поле ввода заголовка -->
-        <v-text-field 
-        :autofocus="true"
-        color="#7E57C2"
-        class="w-100" 
-        min-width="500" 
-        variant="underlined"
-        placeholder="Введите название задачи"
-        v-model="taskData.title"
-        >
-        </v-text-field>
-        <!-- Поле ввода текста -->
-        <v-textarea 
-        color="#7E57C2"
-        class="w-100" 
-        v-model="taskData.description"
-        placeholder="Введите описание задачи"
-        >
-        </v-textarea>
-        <!-- Блок с кнопкой -->
-        <div class="w-100 d-flex justify-end align-center ga-2">
-            <v-btn 
-            :loading="isLoading" 
-            size="x-small" 
-            icon="mdi-content-save-alert-outline" 
-            color="#5C6BC0" 
-            @click="saveTask"
-            >
-            </v-btn>
-        </div>
+  <div class="task-container">
+    <!-- Кнопка закрытия окна -->
+    <v-btn 
+      variant="outlined" 
+      size="small" 
+      icon="mdi-close" 
+      color="var(--basic-icon-color2)" 
+      @click="emits('close')"
+    >
+    </v-btn>
+    <!-- Поле ввода заголовка -->
+    <v-text-field 
+      :autofocus="true"
+      color="#7E57C2"
+      class="w-100" 
+      min-width="500" 
+      variant="underlined"
+      placeholder="Введите название задачи"
+      v-model="taskData.title"
+    >
+    </v-text-field>
+    <!-- Поле ввода текста -->
+    <v-textarea 
+      color="#7E57C2"
+      class="w-100" 
+      v-model="taskData.description"
+      placeholder="Введите описание задачи"
+    >
+    </v-textarea>
+    <!-- Блок с кнопкой -->
+    <div class="w-100 d-flex justify-end align-center ga-2">
+      <v-btn 
+        :loading="isLoading" 
+        size="x-small" 
+        icon="mdi-content-save-alert-outline" 
+        color="#5C6BC0" 
+        @click="saveTask"
+      >
+      </v-btn>
     </div>
+  </div>
 
 </template>
 

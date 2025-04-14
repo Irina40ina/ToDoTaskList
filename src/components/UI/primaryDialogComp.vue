@@ -32,16 +32,16 @@ watch(() => props.isShow, (newValue) =>  {
 </script>
 
 <template>
-    <div ref="overlayRef" class="primary-dialog__overlay"
-    @click="emits('close')"
-    v-show="props.isShow"
+  <div ref="overlayRef" class="primary-dialog__overlay"
+       @click="emits('close')"
+       v-show="props.isShow"
+  >
+    <div ref="contentRef" class="primary-dialog__content" 
+         @click.stop
     >
-        <div ref="contentRef" class="primary-dialog__content" 
-        @click.stop
-        >
-            <slot></slot>
-        </div>
+      <slot></slot>
     </div>
+  </div>
 </template>
 
 <style scoped>

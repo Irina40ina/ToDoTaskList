@@ -82,80 +82,80 @@ async function returnTask() {
 </script>
 
 <template>
-    <div 
+  <div 
     class="task-container"
     v-show="props.isShow"
+  >
+    <!-- Кнопка закрытия окна -->
+    <v-btn 
+      variant="outlined" 
+      size="small" 
+      icon="mdi-close" 
+      color="var(--basic-icon-color2)" 
+      @click="emits('close')"
     >
-        <!-- Кнопка закрытия окна -->
-        <v-btn 
-        variant="outlined" 
-        size="small" 
-        icon="mdi-close" 
-        color="var(--basic-icon-color2)" 
-        @click="emits('close')"
-        >
-        </v-btn>
-        <!-- Заголовок -->
-        <v-text-field 
-        class="w-100"
-        :readonly="!editMode" 
-        min-width="500" 
-        variant="underlined"
-        v-model="props.selectedTask.title"
-        >
-        </v-text-field>
-        <!-- Текст -->
-        <v-textarea 
-        class="w-100" 
-        :readonly="!editMode" 
-        v-model="props.selectedTask.description"
-        >
-        </v-textarea>
-        <!-- Блок с кнопками -->
-        <div class="w-100 d-flex justify-end align-center ga-2">
-            <!-- Сохранение -->
-            <v-btn 
-            v-show="editMode"
-            :loading="isLoading" 
-            size="x-small" 
-            icon="mdi-content-save-alert-outline" 
-            color="#5C6BC0" 
-            @click="saveChanges"
-            ></v-btn>
-            <!-- Редактирование -->
-            <v-btn 
-            size="x-small" 
-            icon="mdi-file-edit-outline" 
-            color="#FF7043" 
-            @click="editMode = true"
-            v-show="!props.selectedTask.isComplete"
-            ></v-btn>
-            <!-- Выполнение -->
-            <v-btn 
-            size="x-small" 
-            icon="mdi-check-all" 
-            color="#4DB6AC" 
-            @click="comleteTask"
-            v-show="!props.selectedTask.isComplete"
-            ></v-btn>
-            <!-- Кнопка возврата задачи -->
-            <v-btn
-            icon="mdi-undo-variant"
-            size="x-small"
-            color="#7E57C2"
-            v-show="props.selectedTask.isComplete"
-            @click.stop="returnTask"
-            ></v-btn>
-            <!-- Удаление -->
-            <v-btn 
-            size="x-small" 
-            icon="mdi-trash-can-outline" 
-            color="#7E57C2" 
-            @click="emits('openDialogWindow', props.selectedTask.id)"
-            :loading="props.isLoading"
-            ></v-btn>
-        </div>
+    </v-btn>
+    <!-- Заголовок -->
+    <v-text-field 
+      class="w-100"
+      :readonly="!editMode" 
+      min-width="500" 
+      variant="underlined"
+      v-model="props.selectedTask.title"
+    >
+    </v-text-field>
+    <!-- Текст -->
+    <v-textarea 
+      class="w-100" 
+      :readonly="!editMode" 
+      v-model="props.selectedTask.description"
+    >
+    </v-textarea>
+    <!-- Блок с кнопками -->
+    <div class="w-100 d-flex justify-end align-center ga-2">
+      <!-- Сохранение -->
+      <v-btn 
+        v-show="editMode"
+        :loading="isLoading" 
+        size="x-small" 
+        icon="mdi-content-save-alert-outline" 
+        color="#5C6BC0" 
+        @click="saveChanges"
+      ></v-btn>
+      <!-- Редактирование -->
+      <v-btn 
+        size="x-small" 
+        icon="mdi-file-edit-outline" 
+        color="#FF7043" 
+        @click="editMode = true"
+        v-show="!props.selectedTask.isComplete"
+      ></v-btn>
+      <!-- Выполнение -->
+      <v-btn 
+        size="x-small" 
+        icon="mdi-check-all" 
+        color="#4DB6AC" 
+        @click="comleteTask"
+        v-show="!props.selectedTask.isComplete"
+      ></v-btn>
+      <!-- Кнопка возврата задачи -->
+      <v-btn
+        icon="mdi-undo-variant"
+        size="x-small"
+        color="#7E57C2"
+        v-show="props.selectedTask.isComplete"
+        @click.stop="returnTask"
+      ></v-btn>
+      <!-- Удаление -->
+      <v-btn 
+        size="x-small" 
+        icon="mdi-trash-can-outline" 
+        color="#7E57C2" 
+        @click="emits('openDialogWindow', props.selectedTask.id)"
+        :loading="props.isLoading"
+      ></v-btn>
     </div>
+  </div>
 
 </template>
 

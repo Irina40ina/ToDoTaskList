@@ -77,62 +77,62 @@ onMounted(async () => {
       <div class="w-100 h-100 d-flex justify-space-between align-center elevation-4 px-4 rounded-lg">
         <p class="main-title">Мои задачи</p> 
         <v-btn 
-        size="small" 
-        prepend-icon="mdi-plus" 
-        color="var(--btn-bg)" 
-        @click="isShowCreationDialog = true"
+          size="small" 
+          prepend-icon="mdi-plus" 
+          color="var(--btn-bg)" 
+          @click="isShowCreationDialog = true"
         >
-        Новая задача
+          Новая задача
         </v-btn>
       </div>
     </header>
     <!-- Компонент отрисовки всех задач -->
     <main class="main-container">
-        <taskCardComp 
+      <taskCardComp 
         v-for="task in store.tasks" 
         :key="task.id" 
         :task-data="task" 
         @select-task="openTask" 
         @open-dialog-window="openDialogDeleteTask"
-        > 
-        </taskCardComp>
+      > 
+      </taskCardComp>
     </main>
     
     <!-- Компонент отрисовки открытой задачи -->
     <primaryDialogComp 
-    :is-show="isShowSelectedTask"
-    @close="isShowSelectedTask = false"
+      :is-show="isShowSelectedTask"
+      @close="isShowSelectedTask = false"
     >
       <taskContentComp 
-      :is-show="isShowSelectedTask"
-      :selected-task="selectedTaskData" 
-      @close="isShowSelectedTask = false" 
-      @open-dialog-window="openDialogDeleteTask"
-      :is-loading="isLoading"
+        :is-show="isShowSelectedTask"
+        :selected-task="selectedTaskData" 
+        @close="isShowSelectedTask = false" 
+        @open-dialog-window="openDialogDeleteTask"
+        :is-loading="isLoading"
       >
       </taskContentComp>
     </primaryDialogComp>
 
     <!-- Компонент создания новой задачи -->
     <primaryDialogComp 
-    :is-show="isShowCreationDialog" 
-    @close="isShowCreationDialog = false"
-    >
-      <taskCreationComp 
       :is-show="isShowCreationDialog" 
       @close="isShowCreationDialog = false"
+    >
+      <taskCreationComp 
+        :is-show="isShowCreationDialog" 
+        @close="isShowCreationDialog = false"
       >
       </taskCreationComp>
     </primaryDialogComp>
     
     <!-- Диалоговое окно при удалении задачи -->
     <primaryDialogComp 
-    :is-show="deleteMode"
+      :is-show="deleteMode"
     >
       <deleteDialogWindowComp 
-      @delete-task="deleteTask" 
-      @close="handleCloseDeleteWindow"
-      :is-loading="isLoading"
+        @delete-task="deleteTask" 
+        @close="handleCloseDeleteWindow"
+        :is-loading="isLoading"
       />
     </primaryDialogComp>
   </div>
