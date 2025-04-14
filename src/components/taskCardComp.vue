@@ -21,11 +21,11 @@ const emits = defineEmits<{
 const isLoading: Ref<boolean> = ref(false);
 // ############################## METHODS ##############################
 async function completeTask() {
-    try {
+  try {
         isLoading.value = true;
         props.taskData.isComplete = true;
         const result = await completeTasks(props.taskData);
-        if(result === 'success')
+        if(result === "success")
         store.tasks = store.tasks.map((t: TaskDataType) => t.id === props.taskData.id ? {...t, isComplete: true} : t);
     } catch (err) {
         console.error(`taskCardComp.vue => completeTask => ${err}`);
